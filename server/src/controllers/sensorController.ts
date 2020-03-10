@@ -13,15 +13,27 @@ class SensorController{
 
    // HACER PROCEDIMIENTO ALMACENADO QUE ALMACENE TODOS LOS REGISTROS O BIEN CREAR TODAS LAS CONSULTAS.
    public async create(req:Request, res:Response): Promise<void> {
-      await pool.query('INSERT INTO PESO VALUES(?, SYSDATE(), ?, ?)', [req.body.peso, req.body.longitud, req.body.latitud]);
-      await pool.query('INSERT INTO INCLINACION VALUES(?, SYSDATE(), ?, ?)', [req.body.inclinacion, req.body.longitud, req.body.latitud]);
-      await pool.query('INSERT INTO AGUA VALUES(?, SYSDATE(), ?, ?)', [req.body.agua, req.body.longitud, req.body.latitud]);
-      await pool.query('INSERT INTO LUZ VALUES(?, SYSDATE(), ?, ?)', [req.body.luz, req.body.longitud, req.body.latitud]);
-      await pool.query('INSERT INTO SONIDO VALUES(?, SYSDATE(), ?, ?)', [req.body.sonido, req.body.longitud, req.body.latitud]);
-      await pool.query('INSERT INTO ALARMA VALUES(?, SYSDATE(), ?, ?)', [req.body.alarma, req.body.longitud, req.body.latitud]);
-      await pool.query('INSERT INTO ANTIRROBOS VALUES(?, SYSDATE(), ?, ?)', [req.body.antirrobos, req.body.longitud, req.body.latitud]);
-      await pool.query('INSERT INTO CONTADOR_PASOS VALUES(?, SYSDATE(), ?, ?)', [req.body.contador_pasos, req.body.longitud, req.body.latitud]);
-      await pool.query('INSERT INTO RITMO_CARDIACO VALUES(?, SYSDATE(), ?, ?)', [req.body.ritmo_cardiaco, req.body.longitud, req.body.latitud]);
+
+      //insert into PESO VALUES(10.5, '2020-03-09 21:10:50', 10, 15);
+      var d = new Date();
+      var year = d.getFullYear();
+      var month = d.getMonth() +1;
+      var dia = d.getDate();
+      var hour = d.getHours();
+      var minutes = d.getMinutes();
+      var seconds = d.getSeconds();
+
+      var fecha = year+"-"+month+"-"+dia+" "+hour+":"+minutes+":"+seconds;
+
+      await pool.query('INSERT INTO PESO VALUES(?, ?, ?, ?)', [req.body.peso, fecha, req.body.longitud, req.body.latitud]);
+      await pool.query('INSERT INTO INCLINACION VALUES(?, ?, ?, ?)', [req.body.inclinacion, fecha, req.body.longitud, req.body.latitud]);
+      await pool.query('INSERT INTO AGUA VALUES(?, ?, ?, ?)', [req.body.agua, fecha, req.body.longitud, req.body.latitud]);
+      await pool.query('INSERT INTO LUZ VALUES(?, ?, ?, ?)', [req.body.luz, fecha, req.body.longitud, req.body.latitud]);
+      await pool.query('INSERT INTO SONIDO VALUES(?, ?, ?, ?)', [req.body.sonido, fecha, req.body.longitud, req.body.latitud]);
+      await pool.query('INSERT INTO ALARMA VALUES(?, ?, ?, ?)', [req.body.alarma, fecha, req.body.longitud, req.body.latitud]);
+      await pool.query('INSERT INTO ANTIRROBOS VALUES(?, ?, ?, ?)', [req.body.antirrobos, fecha, req.body.longitud, req.body.latitud]);
+      await pool.query('INSERT INTO CONTADOR_PASOS VALUES(?, ?, ?, ?)', [req.body.contador_pasos, fecha, req.body.longitud, req.body.latitud]);
+      await pool.query('INSERT INTO RITMO_CARDIACO VALUES(?, ?, ?, ?)', [req.body.ritmo_cardiaco, fecha, req.body.longitud, req.body.latitud]);
       
       res.json({result: true});
    } 

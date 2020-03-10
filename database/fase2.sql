@@ -8,7 +8,9 @@ LONGITUD FLOAT,
 LATITUD FLOAT
 );
 
-SELECT * FROM PESO where date_format(FECHA, '%d-%m-%Y') = '03-03-2020';
+select * from PESO;
+SELECT * FROM PESO where date_format(FECHA, '%d-%m-%Y') = '09-03-2020';
+insert into PESO VALUES(10.5, '2020-3-9 21:25:23', 10, 15);
 
 CREATE TABLE INCLINACION(
 INCLINACION FLOAT,
