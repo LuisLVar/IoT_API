@@ -20,6 +20,7 @@ class Server {
         this.app.use(cors());
         this.app.use(express.json());
         this.app.use(express.urlencoded({extended:false})); //validar desde un html form?
+        this.app.use(express.static('../cliente/public')); //Para usar JS, assets externos
     }
 
     routes():void{

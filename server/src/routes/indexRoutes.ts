@@ -11,6 +11,9 @@ class IndexRoutes{
 
     config():void {
         this.router.get('/', indexController.index);
+        this.router.get('/inicio', indexController.index);
+        this.router.get('/graficas', indexController.graficas);
+        this.router.get('/relaciones', indexController.relation);
     }
 }
 

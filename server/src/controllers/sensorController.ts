@@ -39,107 +39,107 @@ class SensorController{
    } 
 
    public async listPeso(req:Request, res:Response) {
-      const pesos = await pool.query('SELECT * FROM PESO');
+      const pesos = await pool.query("SELECT PESOKG, date_format(FECHA, '%d-%m-%Y %H:%i:%s') as FECHA, LONGITUD, LATITUD FROM PESO");
         res.json(pesos);
    }
    
    public async listDayPeso(req:Request, res:Response) {
       const {date} = req.params;
-      const datos = await pool.query('SELECT * FROM PESO where date_format(FECHA, \'%d-%m-%Y\') = ?', [date])
+      const datos = await pool.query("SELECT PESOKG, date_format(FECHA, '%d-%m-%Y %H:%i:%s') as FECHA, LONGITUD, LATITUD FROM PESO where date_format(FECHA, \'%d-%m-%Y\') = ?", [date]);
       res.json(datos);
    } 
 
    public async listInclinacion(req:Request, res:Response) {
-      const pesos = await pool.query('SELECT * FROM INCLINACION');
+      const pesos = await pool.query("SELECT INCLINACION, date_format(FECHA, '%d-%m-%Y %H:%i:%s') as FECHA, LONGITUD, LATITUD FROM INCLINACION");
         res.json(pesos);
    }
    
    public async listDayInclinacion(req:Request, res:Response) {
       const {date} = req.params;
-      const datos = await pool.query('SELECT * FROM INCLINACION where date_format(FECHA, \'%d-%m-%Y\') = ?', [date])
+      const datos = await pool.query("SELECT INCLINACION, date_format(FECHA, '%d-%m-%Y %H:%i:%s') as FECHA, LONGITUD, LATITUD FROM INCLINACION where date_format(FECHA, \'%d-%m-%Y\') = ?", [date]);
       res.json(datos);
    } 
 
 
    public async listAgua(req:Request, res:Response) {
-      const pesos = await pool.query('SELECT * FROM AGUA');
+      const pesos = await pool.query("SELECT AGUA, date_format(FECHA, '%d-%m-%Y %H:%i:%s') as FECHA, LONGITUD, LATITUD FROM AGUA");
         res.json(pesos);
    }
    
    public async listDayAgua(req:Request, res:Response) {
       const {date} = req.params;
-      const datos = await pool.query('SELECT * FROM AGUA where date_format(FECHA, \'%d-%m-%Y\') = ?', [date])
+      const datos = await pool.query("SELECT AGUA, date_format(FECHA, '%d-%m-%Y %H:%i:%s') as FECHA, LONGITUD, LATITUD FROM AGUA where date_format(FECHA, \'%d-%m-%Y\') = ?", [date]);
       res.json(datos);
    } 
 
 
    public async listLuz(req:Request, res:Response) {
-      const pesos = await pool.query('SELECT * FROM LUZ');
+      const pesos = await pool.query("SELECT LUZ, date_format(FECHA, '%d-%m-%Y %H:%i:%s') as FECHA, LONGITUD, LATITUD FROM LUZ");
         res.json(pesos);
    }
    
    public async listDayLuz(req:Request, res:Response) {
       const {date} = req.params;
-      const datos = await pool.query('SELECT * FROM LUZ where date_format(FECHA, \'%d-%m-%Y\') = ?', [date])
+      const datos = await pool.query("SELECT LUZ, date_format(FECHA, '%d-%m-%Y %H:%i:%s') as FECHA, LONGITUD, LATITUD FROM LUZ where date_format(FECHA, \'%d-%m-%Y\') = ?", [date]);
       res.json(datos);
    } 
 
 
    public async listSonido(req:Request, res:Response) {
-      const pesos = await pool.query('SELECT * FROM SONIDO');
+      const pesos = await pool.query("SELECT SONIDO, date_format(FECHA, '%d-%m-%Y %H:%i:%s') as FECHA, LONGITUD, LATITUD FROM SONIDO");
         res.json(pesos);
    }
    
    public async listDaySonido(req:Request, res:Response) {
       const {date} = req.params;
-      const datos = await pool.query('SELECT * FROM SONIDO where date_format(FECHA, \'%d-%m-%Y\') = ?', [date])
+      const datos = await pool.query("SELECT SONIDO, date_format(FECHA, '%d-%m-%Y %H:%i:%s') as FECHA, LONGITUD, LATITUD FROM SONIDO where date_format(FECHA, \'%d-%m-%Y\') = ?", [date]);
       res.json(datos);
    } 
 
 
    public async listAlarma(req:Request, res:Response) {
-      const pesos = await pool.query('SELECT * FROM ALARMA');
+      const pesos = await pool.query("SELECT ESTADO, date_format(FECHA, '%d-%m-%Y %H:%i:%s') as FECHA, LONGITUD, LATITUD FROM ALARMA");
         res.json(pesos);
    }
    
    public async listDayAlarma(req:Request, res:Response) {
       const {date} = req.params;
-      const datos = await pool.query('SELECT * FROM ALARMA where date_format(FECHA, \'%d-%m-%Y\') = ?', [date])
+      const datos = await pool.query("SELECT ESTADO, date_format(FECHA, '%d-%m-%Y %H:%i:%s') as FECHA, LONGITUD, LATITUD FROM ALARMA where date_format(FECHA, \'%d-%m-%Y\') = ?", [date]);
       res.json(datos);
    } 
 
 
    public async listAntirrobos(req:Request, res:Response) {
-      const pesos = await pool.query('SELECT * FROM ANTIRROBOS');
+      const pesos = await pool.query("SELECT ESTADO, date_format(FECHA, '%d-%m-%Y %H:%i:%s') as FECHA, LONGITUD, LATITUD FROM ANTIRROBOS");
         res.json(pesos);
    }
    
    public async listDayAntirrobos(req:Request, res:Response) {
       const {date} = req.params;
-      const datos = await pool.query('SELECT * FROM ANTIRROBOS where date_format(FECHA, \'%d-%m-%Y\') = ?', [date])
+      const datos = await pool.query("SELECT ESTADO, date_format(FECHA, '%d-%m-%Y %H:%i:%s') as FECHA, LONGITUD, LATITUD FROM ANTIRROBOS where date_format(FECHA, \'%d-%m-%Y\') = ?", [date]);
       res.json(datos);
    } 
 
 
    public async listPasos(req:Request, res:Response) {
-      const pesos = await pool.query('SELECT * FROM CONTADOR_PASOS');
+      const pesos = await pool.query("SELECT PASOS, date_format(FECHA, '%d-%m-%Y %H:%i:%s') as FECHA, LONGITUD, LATITUD FROM CONTADOR_PASOS");
         res.json(pesos);
    }
    
    public async listDayPasos(req:Request, res:Response) {
       const {date} = req.params;
-      const datos = await pool.query('SELECT * FROM CONTADOR_PASOS where date_format(FECHA, \'%d-%m-%Y\') = ?', [date])
+      const datos = await pool.query("SELECT PASOS, date_format(FECHA, '%d-%m-%Y %H:%i:%s') as FECHA, LONGITUD, LATITUD FROM CONTADOR_PASOS where date_format(FECHA, \'%d-%m-%Y\') = ?", [date]);
       res.json(datos);
    } 
 
    public async listRitmo(req:Request, res:Response) {
-      const pesos = await pool.query('SELECT * FROM RITMO_CARDIACO');
+      const pesos = await pool.query("SELECT RITMO, date_format(FECHA, '%d-%m-%Y %H:%i:%s') as FECHA, LONGITUD, LATITUD FROM RITMO_CARDIACO");
         res.json(pesos);
    }
    
    public async listDayRitmo(req:Request, res:Response) {
       const {date} = req.params;
-      const datos = await pool.query('SELECT * FROM RITMO_CARDIACO where date_format(FECHA, \'%d-%m-%Y\') = ?', [date])
+      const datos = await pool.query("SELECT RITMO, date_format(FECHA, '%d-%m-%Y %H:%i:%s') as FECHA, LONGITUD, LATITUD FROM RITMO_CARDIACO where date_format(FECHA, \'%d-%m-%Y\') = ?", [date]);
       res.json(datos);
    } 
 }

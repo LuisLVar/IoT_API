@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Mochila inteligente</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://bootswatch.com/4/materia/bootstrap.min.css">
+    <!-- FONT AWESOME -->
+    <script src="https://kit.fontawesome.com/9a7ba73f6a.js" crossorigin="anonymous"></script>
+    <!-- CHARTS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
+
+</head>
+
+<body onload="getdata()">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/inicio">Mochila inteligente </a>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href='/graficas'><i class="fas fa-chart-line"></i> GRAFICAS </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href='/relaciones'><i class="fas fa-chart-line"></i> RELACIONES </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container p-4">
+        <hr>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card text-center">
+                    <div class="card-header bg-primary text-white d-flex align-items-center">
+                        <h5>GRAFICAS</h5>
+                    </div>
+                    <button type="button" class="btn btn-outline-primary" id="btnPeso">Peso</button>
+                    <button type="button" class="btn btn-outline-primary" id="btnInclinacion">Inclinacion</button>
+                    <button type="button" class="btn btn-outline-primary" id="btnAgua">Agua</button>
+                    <button type="button" class="btn btn-outline-primary" id="btnLuz">Luz</button>
+                    <button type="button" class="btn btn-outline-primary" id="btnSonido">Sonido</button>
+                    <button type="button" class="btn btn-outline-primary" id="btnAlarma">Alarma</button>
+                    <button type="button" class="btn btn-outline-primary" id="btnAntirrobo">Antirrobo</button>
+                    <button type="button" class="btn btn-outline-primary" id="btnPasos">Pasos</button>
+                    <button type="button" class="btn btn-outline-primary" id="btnRitmo">Ritmo Cardiaco</button>
+                    <button type="button" class="btn btn-outline-danger" id="btnLimpiar">Limpiar Grafica</button>
+                    <button type="button" class="btn btn-outline-warning" id="btnAmpliar">Resize Grafica</button>
+                </div>
+            </div>
+            <div class="col-md-6" id = "idChart">
+                <div class="card text-center">
+                    <div class="card-header text-white d-flex justify-content-between align-items-left">
+                        <canvas id="myChart" width="400" height="400"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+    </div>
+</body>
+<!-- JS -->
+<script type="text/javascript" src="/js/funciones.js"></script>
+</html>
