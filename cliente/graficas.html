@@ -4,6 +4,14 @@
 <head>
     <meta charset="utf-8">
     <title>Mochila inteligente</title>
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+        #map {
+            height: 400px;
+            width: 800px;
+        }
+    </style>
     <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -41,6 +49,8 @@
         </div>
     </nav>
     <div class="container p-4">
+        <button type="button" class="btn btn-outline-primary" id="btnFecha">Fecha</button>
+        <input type="text" class="btn btn-outline-primary" id="inputFecha"></input>
         <hr>
         <div class="row">
             <div class="col-md-6">
@@ -70,6 +80,19 @@
             </div>
         </div>
         <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card text-center">
+                    <div class="card-header bg-primary text-white d-flex align-items-center">
+                        <div class="card text-center bg-primary p-4 m-auto">
+                            <div id="map"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
     </div>
     <!-- JS -->
     <script>
@@ -123,8 +146,97 @@
             }
         });
 
+        function limpiar() {
+            peso = [];
+            inclinacion = [];
+            agua = [];
+            luz = [];
+            sonido = [];
+            alarma = [];
+            antirrobo = [];
+            pasos = [];
+            ritmo = [];
+            myChart.data.labels = [];
+            myChart.update();
+        }
+
+        function getdataDay(date) {
+            limpiar();
+            $.get(IP + "/api/sensores/peso/"+date, function (data) {
+                let tmp = data;
+                console.log(data);
+                console.log(myChart.data);
+                if (myChart.data.labels.length == 0) {
+                    for (var i = 0; i < tmp.length; i++) {
+                        myChart.data.labels.push(tmp[i].FECHA);
+                        peso.push(tmp[i].PESOKG);
+                    }
+                }
+                myChart.update();
+            });
+            $.get(IP + "/api/sensores/inclinacion/"+date, function (data) {
+                let tmp = data;
+                for (var i = 0; i < tmp.length; i++) {
+                    inclinacion.push(tmp[i].INCLINACION);
+                }
+                console.log(inclinacion);
+            });
+            $.get(IP + "/api/sensores/agua/"+date, function (data) {
+                let tmp = data;
+                for (var i = 0; i < tmp.length; i++) {
+                    agua.push(tmp[i].AGUA);
+                }
+                console.log(agua);
+            });
+            $.get(IP + "/api/sensores/luz/"+date, function (data) {
+                let tmp = data;
+                for (var i = 0; i < tmp.length; i++) {
+                    luz.push(tmp[i].LUZ);
+                }
+                console.log(luz);
+            });
+            $.get(IP + "/api/sensores/sonido/"+date, function (data) {
+                let tmp = data;
+                for (var i = 0; i < tmp.length; i++) {
+                    sonido.push(tmp[i].SONIDO);
+                }
+                console.log(sonido);
+            });
+            $.get(IP + "/api/sensores/alarma/"+date, function (data) {
+                let tmp = data;
+                for (var i = 0; i < tmp.length; i++) {
+                    alarma.push(tmp[i].ESTADO);
+                }
+                console.log(alarma);
+            });
+            $.get(IP + "/api/sensores/antirrobo/"+date, function (data) {
+                let tmp = data;
+                for (var i = 0; i < tmp.length; i++) {
+                    antirrobo.push(tmp[i].ESTADO);
+                }
+                console.log("antirrobo");
+                console.log(antirrobo);
+            });
+            $.get(IP + "/api/sensores/contador_pasos/"+date, function (data) {
+                let tmp = data;
+                for (var i = 0; i < tmp.length; i++) {
+                    pasos.push(tmp[i].PASOS);
+                }
+                console.log(pasos);
+            });
+            $.get(IP + "/api/sensores/ritmo_cardiaco/"+date, function (data) {
+                let tmp = data;
+                for (var i = 0; i < tmp.length; i++) {
+                    ritmo.push(tmp[i].RITMO);
+                }
+                console.log(ritmo);
+            });
+            
+        }
+
         //DATA PARA TOMAR FECHAS
         function getdata() {
+            $('#inputFecha').val('');
             $.get(IP + "/api/sensores/peso", function (data) {
                 let tmp = data;
                 console.log(data);
@@ -135,6 +247,7 @@
                         peso.push(tmp[i].PESOKG);
                     }
                 }
+                myChart.update();
             });
             $.get(IP + "/api/sensores/inclinacion", function (data) {
                 let tmp = data;
@@ -193,6 +306,7 @@
                 }
                 console.log(ritmo);
             });
+
         }
 
 
@@ -228,6 +342,14 @@
 
 
         //FUNCIONES ONCLICK
+        $('#btnFecha').click(function () {
+            limpiar();
+            let fecha = $('#inputFecha').val();
+            console.log(fecha);
+            getdataDay(fecha);
+
+        });
+
         $('#btnAmpliar').click(function () {
 
             if ($('#idChart').attr('class') == 'col-md-6') {
@@ -394,6 +516,40 @@
         });
 
     </script>
+    <script>
+
+        function initMap() {
+            var myLatLng = { lat: 14.5, lng: -90.5 };
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 12,
+                center: myLatLng
+            });
+
+            const Http = new XMLHttpRequest();
+            const url = 'http://www.luisvargasgt.com/api/sensores/peso';
+            Http.open("GET", url);
+            Http.send();
+            Http.onreadystatechange = (e) => {
+                var str = Http.responseText;
+                if (str != "") {
+                    console.log(Http.responseText);
+                    var obj = JSON.parse(str);
+
+                    for (var x in obj) {
+                        var marker = new google.maps.Marker({
+                            position: { lat: Number(obj[x].LATITUD), lng: Number(obj[x].LONGITUD) },
+                            map: map,
+                            title: 'FECHA: ' + obj[x].FECHA
+                        });
+                    }
+                }
+            }
+        }
+    </script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvlB43sqdnojwQQcbyFBQMP580iXdJd4g&callback=initMap">
+        </script>
 </body>
 
 </html>
